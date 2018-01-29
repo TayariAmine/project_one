@@ -1,0 +1,63 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+    <groupId>com.sabrine</groupId>
+    <artifactId>theparent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+    <artifactId>thejavapart</artifactId>
+      <dependencies>
+  <dependency>
+    <groupId>commons-lang</groupId>
+    <artifactId>commons-lang</artifactId>
+    <version>2.3</version>
+</dependency>
+ <dependency>
+ <groupId>org.apache.parquet</groupId>
+ <artifactId>parquet-hadoop</artifactId>
+ <version>1.9.0</version>
+ </dependency>
+ 
+ <dependency>
+ <groupId>org.apache.hadoop</groupId>
+ <artifactId>hadoop-common</artifactId>
+ <version>2.7.3</version>
+ </dependency>
+ 
+ <dependency>
+	<groupId>com.univocity</groupId>
+	<artifactId>univocity-parsers</artifactId>
+	<version>2.5.9</version>
+	<type>jar</type>
+	</dependency>
+		<dependency>
+			<groupId>org.apache.hadoop</groupId>
+			<artifactId>hadoop-client</artifactId>
+			<version>2.7.3</version>
+		</dependency>  
+</dependencies>
+<distributionManagement>
+		<repository>
+			<id>deployment</id>
+			<name>Internal Releases</name>
+			<url>http://localhost:8081/repository/thejavapart-Rel/</url>
+		</repository>
+		<snapshotRepository>
+			<id>deployment</id>
+			<name>Internal Snapshot Releases</name>
+			<url>http://localhost:8081/repository/thejavapart-Snap/</url>
+		</snapshotRepository>
+	</distributionManagement>
+	<repositories>
+		<repository>
+			<id>maven-group</id>
+			<url>http://localhost:8081/repository/thejavapart-mvn-grp/</url>
+		</repository>
+	</repositories>
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+      <maven.deploy.skip>false</maven.deploy.skip>
+  </properties>
+</project>
