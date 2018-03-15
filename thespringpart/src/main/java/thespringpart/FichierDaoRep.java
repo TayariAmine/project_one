@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+import thespringpart.FichierDao;
+//import lombok.extern.slf4j.Slf4j;
+import thejavapart.FichierCsv;
 
-import lombok.extern.slf4j.Slf4j;
-import thejavapart.*;
-
-@Slf4j
+//@Slf4j
 @Repository
 public class FichierDaoRep implements FichierDao {
 
@@ -64,14 +64,18 @@ public class FichierDaoRep implements FichierDao {
 		return result;
 	}
 
-	public List<String> join(String path,int field_one, String second_file,int field_two) throws FileNotFoundException {
+	public List<String> join(String path,String field_one, String second_file,String field_two) throws FileNotFoundException {
+		
 		
 		List<String> result = new ArrayList<String>();
+		
+		int field_one_one = Integer.parseInt(field_one);
+		int field_two_one = Integer.parseInt(field_two);
 		if (path.contains(".tsv")) {
-			result = (new thejavapart.FichierTsv("/home/tcb/"+path)).joinWith(field_one, second_file, field_two);
+			result = (new thejavapart.FichierTsv("/home/tcb/"+path)).joinWith(field_one_one,"/home/tcb/"+ second_file, field_two_one);
 
 		} else if (path.contains(".csv")) {
-			result = (new thejavapart.FichierCsv("/home/tcb/"+path)).joinWith(field_one, second_file, field_two);
+			result = (new thejavapart.FichierCsv("/home/tcb/"+path)).joinWith(field_one_one,"/home/tcb/"+ second_file, field_two_one);
 		} else {
 			result.add("couldn't join");
 
@@ -84,17 +88,18 @@ public class FichierDaoRep implements FichierDao {
 		return result;
 	}
 
-	public String writeToHdfs(String path) throws IllegalArgumentException, IOException {
-		String result;
+	public List<String> writeToHdfs(String path) throws IllegalArgumentException, IOException {
+		List<String> result = new ArrayList<String>();
+
 		if (path.contains(".tsv")) {
-			result = (new thejavapart.FichierTsv("/home/tcb/"+path)).copyToHDFS();
+			result.add((new thejavapart.FichierTsv("/home/tcb/"+path)).copyToHDFS());
 
 		} else if (path.contains(".csv")) {
-			result = (new thejavapart.FichierCsv("/home/tcb/"+path)).copyToHDFS();
+			result.add((new thejavapart.FichierCsv("/home/tcb/"+path)).copyToHDFS());
 		} else if (path.contains(".parquet")) {
-			result = (new thejavapart.FichierParquet("/home/tcb/"+path)).copyToHDFS();
+			result.add((new thejavapart.FichierParquet("/home/tcb/"+path)).copyToHDFS());
 		} else {
-			result="copy to hdfs";
+			result.add("copy to hdfs");
 
 		}
 		return result;
